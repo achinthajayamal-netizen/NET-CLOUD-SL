@@ -2,12 +2,6 @@ plugins {
     id 'com.android.application'
 }
 
-repositories {
-    google()
-    mavenCentral()
-    flatDir { dirs 'libs' }
-}
-
 android {
     namespace 'com.netcloudsl.app'
     compileSdk 35
@@ -19,17 +13,13 @@ android {
         versionCode 2
         versionName '2.0'
     }
-}
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    // Optional: install app/libs/libXray.aar using native/build-libxray.sh
-    if (file('libs/libXray.aar').exists()) {
-        implementation(name: 'libXray', ext: 'aar')
-    }
+    implementation files('libs/libXray.aar')
 }
