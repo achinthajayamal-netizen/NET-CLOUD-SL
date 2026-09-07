@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
         TextView sub=tv("Sri Lanka's Premier Cloud Network",13); sub.setTextColor(muted()); sub.setPadding(dp(62),dp(0),0,dp(10)); root.addView(sub);
 
         LinearLayout statusCard=panel(); statusCard.setOrientation(LinearLayout.VERTICAL); statusCard.setGravity(Gravity.CENTER); statusCard.setPadding(dp(16),dp(16),dp(16),dp(16));
-        TextView st=tv(status,16); st.setTypeface(null,1); st.setTextColor(state.equals("PROTECTED")?Color.rgb(65,230,135):Color.rgb(255,190,70)); st.setGravity(Gravity.CENTER);
+        TextView st=tv(state,16); st.setTypeface(null,1); st.setTextColor(state.equals("PROTECTED")?Color.rgb(65,230,135):Color.rgb(255,190,70)); st.setGravity(Gravity.CENTER);
         statusCard.addView(st);
         TextView st2=tv(state.equals("PROTECTED")?"Your traffic is protected":"Tap connect to start the secure tunnel",12); st2.setTextColor(muted()); st2.setGravity(Gravity.CENTER); statusCard.addView(st2);
         LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(-1,dp(82)); sp.bottomMargin=dp(14); root.addView(statusCard,sp);
