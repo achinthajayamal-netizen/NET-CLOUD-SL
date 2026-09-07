@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        with:
+          go-version: 'stable'
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -18,8 +21,21 @@ jobs:
         run: yes | sdkmanager --licenses >/dev/null || true
       - name: Install SDK/NDK
         run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "ndk;27.2.12479018"
+      - name: Install gomobile
+        run: |
+          export GOBIN="$HOME/.local/bin"
+          mkdir -p "$GOBIN"
+          go install golang.org/x/mobile/cmd/gomobile@latest
+          echo "$GOBIN" >> "$GITHUB_PATH"
+          export PATH="$GOBIN:$PATH"
+          command -v gomobile
+          gomobile version
+
       - name: Build libXray AAR
         run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          command -v gomobile
+          gomobile version
           git clone --depth 1 https://github.com/XTLS/libXray.git native/libXray
           python3 native/libXray/build/main.py android
           AAR=$(find native/libXray -type f -name '*.aar' | head -n1)
